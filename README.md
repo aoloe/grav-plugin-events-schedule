@@ -93,7 +93,7 @@ Create an `events-schedule.md` page to  get a list of the next events.
 
 The list is created by the `events-schedule.html.twig` template.
 
-The list might be rendered as:
+The list can be rendered as:
 
 ![Short list of next events](resources/events-next.png)
 
@@ -103,6 +103,8 @@ The list might be rendered as:
 Create a `events-schedule-next.md` module to  get a list of the next events.
 
 The list is created by the `events-schedule-next.html.twig` template.
+
+The list can be rendered as:
 
 ![list of events](resources/events.png)
 
