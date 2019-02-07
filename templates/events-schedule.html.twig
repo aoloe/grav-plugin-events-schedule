@@ -1,0 +1,46 @@
+{% extends 'partials/base.html.twig' %}
+
+{% set settings = {} %}
+
+{% if attribute(header, "events-schedule") %}
+    {% set settings =  attribute(header, "events-schedule") %}
+{% endif %}
+
+{% block body %}
+    {{ page.content|raw }}
+    {% if settings.pdf %}
+    <p><a href="{{ page.url }}/{{ settings.pdf }}">
+        <img src="{{ url('plugin://events-schedule/images/pdf.gif') }}">
+        Aktuelles Jahresprogramm.
+    </a></p>
+    {% endif %}
+    {% if settings.pdf %}
+    <p><a href="{{ page.url }}/{{ settings.ics }}">
+        <img src="{{ url('plugin://events-schedule/images/ics.png') }}">
+        iCal (Apple).
+    </a></p>
+    <p>
+        <a href="https://www.google.com/calendar/render?cid={{ page.url | url_encode}}/{{ settings.ics }}">
+        <img src="{{ url('plugin://events-schedule/images/google-calendar.png') }}">
+        Goolge Calendar (Android).
+        </a>
+    </p>
+    {% endif %}
+
+    <h2>Nächste Termine</h2>
+
+    {% for event in eventsScheduleNextDates(6) %}
+    <ul class="date {{ event.active ? 'scheduled' : 'cancelled' }}">
+    <li>{{ event.day }} {{ event.month }}: {{ event.label }}</li>
+    </ul>
+    {% endfor %}
+
+    <h2>Geplante Events</h2>
+
+    {% for event in eventsScheduleNextEvents() %}
+    <ul class="date {{ event.active ? 'scheduled' : 'cancelled' }}">
+    <li>{{ event.day }} {{ event.month }} {{ event.year }} : {{ event.label }}</li>
+    </ul>
+    {% endfor %}
+
+{% endblock %}

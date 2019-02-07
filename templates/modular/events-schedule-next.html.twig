@@ -1,0 +1,17 @@
+{% set settings = {} %}
+
+{% if attribute(header, "events-schedule") %}
+    {% set settings =  attribute(header, "events-schedule") %}
+{% endif %}
+
+{# {{ dump(settings) }} #}
+
+<div class="schedule_next">
+{% for event in eventsScheduleNextDates(4) %}
+<div class="date {{ event.active ? 'scheduled' : 'cancelled' }}">
+<span class="day">{{ event.day }}</span>
+<span class="month">{{ event.month | slice(0, 3) }}</span>
+</div>
+<div class="label">{{ event.label }}</div>
+{% endfor %}
+</div>
