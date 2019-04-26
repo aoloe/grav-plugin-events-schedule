@@ -4,19 +4,29 @@ List events defined in a simple `yaml` file.
 
 This plugin has been created for a Badminton Club with weekly trainings, school holidays without trainings, and social events a couple of time a year.
 
+There are still a few hard coded strings, but it should be easy to make it more configurable. Pull requests are very welcome.
+
 The **Events Schedule** Plugin is for [Grav CMS](http://github.com/getgrav/grav).
+
+## Status
+
+This plugin is not yet in production and it still contains code that is tightly bound to the project that first needed it.
+
+It contains very little code and it should be easy for other users to fork it and adapt to their needs or, even better, make pull requests to make it more configurable.
+
+There are issues in the Github issue tracker that hint to the code that needs to be made more _flexible_.
 
 ## Installation
 
-Installing the Events Schedule plugin can be done in one of two ways. The GPM (Grav Package Manager) installation method enables you to quickly and easily install the plugin with a simple terminal command, while the manual method enables you to do so via a zip file.
+Installing the Events Schedule plugin can be done in one of two ways. ~~The GPM (Grav Package Manager) installation method enables you to quickly and easily install the plugin with a simple terminal command~~, while the manual method enables you to do so via a zip file.
 
-### GPM Installation (Preferred)
+### ~~GPM Installation (Preferred)~~
 
-The simplest way to install this plugin is via the [Grav Package Manager (GPM)](http://learn.getgrav.org/advanced/grav-gpm) through your system's terminal (also called the command line).  From the root of your Grav install type:
+~~The simplest way to install this plugin is via the [Grav Package Manager (GPM)](http://learn.getgrav.org/advanced/grav-gpm) through your system's terminal (also called the command line).  From the root of your Grav install type:~~
 
     bin/gpm install events-schedule
 
-This will install the Events Schedule plugin into your `/user/plugins` directory within Grav. Its files can be found under `/your/site/grav/user/plugins/events-schedule`.
+~~This will install the Events Schedule plugin into your `/user/plugins` directory within Grav. Its files can be found under `/your/site/grav/user/plugins/events-schedule`.~~
 
 ### Manual Installation
 
