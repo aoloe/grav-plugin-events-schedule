@@ -1,2 +1,7 @@
 enabled: true
-text_var: Custom Text added by the **Events Schedule** plugin (disable plugin to remove)
+default:
+    label: ""
+    start: 08:00
+    end: 18:00
+    location: ""
+    url: https://example.com

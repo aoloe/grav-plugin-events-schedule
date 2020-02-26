@@ -22,11 +22,11 @@ class EventsSchedulePlugin extends Plugin
     private $schedule = null;
 
     private $default = [
-        'label' => 'Training',
-        'start' => '20:00',
-        'end' => '21:45',
-        'location' => 'Kanti Urdorf',
-        'url' => 'http://bc-oberurdorf.ch/programm',
+        'label' => null,
+        'start' => null,
+        'end' => null,
+        'location' => null,
+        'url' => null,
     ];
 
     public static function getSubscribedEvents()
@@ -52,6 +52,12 @@ class EventsSchedulePlugin extends Plugin
             'onTwigTemplatePaths' => ['onTwigTemplatePaths', 0],
             // 'onPageContentRaw' => ['onPageContentRaw', 0]
         ]);
+
+        // read the defaults from the config file
+        $default = Grav::instance()['config']->get('plugins.events-schedule');
+        if ($default && array_key_exists('default', $default)) {
+            $this->default = $default['default'] + $this->default;
+        }
     }
 
     /**
@@ -120,7 +126,7 @@ class EventsSchedulePlugin extends Plugin
                 }
                 $result[] = [
                     'day' => $date['mday'],
-                    'month' => $language->translateArray('MONTHS_OF_THE_YEAR',
+                    'month' => $language->translateArray('GRAV.MONTHS_OF_THE_YEAR',
                         $date['mon'] - 1),
                     'active' => $active,
                     'label' => $label
@@ -152,7 +158,7 @@ class EventsSchedulePlugin extends Plugin
                 $date = getdate(strtotime($row['date']));
                 $result[] = [
                     'day' => $date['mday'],
-                    'month' => $language->translateArray('MONTHS_OF_THE_YEAR',
+                    'month' => $language->translateArray('GRAV.MONTHS_OF_THE_YEAR',
                         $date['mon'] - 1),
                     'year' => $date['year'],
                     'label' => $row['label']
@@ -196,9 +202,9 @@ class EventsSchedulePlugin extends Plugin
                     'id' => base64_encode($row['date'].$label).'@'.$this->domain,
                     'timestamp' => $timestamp,
                     'location' => ICS::getIcsStringEscaped($this->default['location']),
-                    'description' => ICS::getIcsStringEscaped($label),
+                    'description' => '', // TODO: check that switching summary and description works with google calendars
                     'url' => $this->default['url'],
-                    'summary' => ''
+                    'summary' => ICS::getIcsStringEscaped($label),
                 ];
                 if (!is_null($count) && $i >= $count) {
                     return $result;
