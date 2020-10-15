@@ -3,7 +3,6 @@ namespace Grav\Plugin;
 
 use Grav\Common\Plugin;
 use Grav\Common\Grav;
-use RocketTheme\Toolbox\Event\Event;
 
 use Grav\Common\File\CompiledYamlFile;
 
@@ -54,9 +53,9 @@ class EventsSchedulePlugin extends Plugin
         ]);
 
         // read the defaults from the config file
-        $default = Grav::instance()['config']->get('plugins.events-schedule');
-        if ($default && array_key_exists('default', $default)) {
-            $this->default = $default['default'] + $this->default;
+        $config = Grav::instance()['config']->get('plugins.events-schedule');
+        if ($config && array_key_exists('default', $config)) {
+            $this->default = $config['default'] + $this->default;
         }
     }
 
@@ -176,7 +175,7 @@ class EventsSchedulePlugin extends Plugin
      * Get the next $count events for the ICS (iCal) outpupt.
      * Called from the Twig templates.
      */
-    public function getNextIcs($count = null)
+    public function getNextIcs($config, $count = null)
     {
         $result = [];
         $this->readSchedule();
@@ -195,6 +194,7 @@ class EventsSchedulePlugin extends Plugin
                 $timeStart = get($row, 'start', $this->default['start']);
                 $timeEnd = get($row, 'end', $this->default['end']);
                 $label = get($row, 'label', $this->default['label']);
+                $description = get($row, 'description', $config['description']);
                 $id = 
                 $result[] = [
                     'start' => ICS::getIcsDateFromIso($row['date']. ' '.$timeStart),
@@ -202,7 +202,7 @@ class EventsSchedulePlugin extends Plugin
                     'id' => base64_encode($row['date'].$label).'@'.$this->domain,
                     'timestamp' => $timestamp,
                     'location' => ICS::getIcsStringEscaped($this->default['location']),
-                    'description' => '', // TODO: check that switching summary and description works with google calendars
+                    'description' => ICS::getIcsStringEscaped($description), // TODO: this is what google calendar shows in the weekly view. we now set both the summary and the description
                     'url' => $this->default['url'],
                     'summary' => ICS::getIcsStringEscaped($label),
                 ];
