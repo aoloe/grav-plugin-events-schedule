@@ -199,7 +199,7 @@ class EventsSchedulePlugin extends Plugin
                 $result[] = [
                     'start' => ICS::getIcsDateFromIso($row['date']. ' '.$timeStart),
                     'end' => ICS::getIcsDateFromIso($row['date']. ' '.$timeEnd),
-                    'id' => base64_encode($row['date'].$label).'@'.$this->domain,
+                    'id' => base64_encode(md5($row['date'].$timeStart.$timeEnd.$label)).'@'.$this->domain,
                     'timestamp' => $timestamp,
                     'location' => ICS::getIcsStringEscaped($this->default['location']),
                     'description' => ICS::getIcsStringEscaped($description), // TODO: this is what google calendar shows in the weekly view. we now set both the summary and the description
