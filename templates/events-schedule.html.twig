@@ -20,7 +20,7 @@
         iCal (Apple).
     </a></p>
     <p>
-        <a href="https://www.google.com/calendar/render?cid={{ base_url_absolute | replace({'https': 'webcal') | url_encode}}/{{ settings.ics }}">
+        <a href="https://www.google.com/calendar/render?cid={{ base_url_absolute | replace({'https': 'webcal'}) | url_encode}}/{{ settings.ics }}">
         <img src="{{ url('plugin://events-schedule/images/google-calendar.png') }}">
         Google Calendar (Android).
         </a>
